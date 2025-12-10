@@ -1,0 +1,27 @@
+package com.bank.BankSimulator.service;
+
+import java.math.BigDecimal;
+
+import com.bank.BankSimulato.repository.AccountRepository;
+import com.bank.BankSimulator.exceptions.InvalidAmountException;
+import com.bank.BankSimulator.model.Account;
+
+public class AccountService {
+	
+	private AccountRepository repo;
+	
+	public AccountService(AccountRepository repo) {
+		this.repo = repo;
+	}
+	
+	public Account createAccount(String holderName ,String email,BigDecimal openingBalance) throws InvalidAmountException {
+		if(openingBalance.compareTo(BigDecimal.ZERO) < 0) {
+			throw new InvalidAmountException("Opening balance cannot be negative");
+		}
+		
+		Account account = new Account(holderName,email,openingBalance);
+		repo.save(account);
+		return account;
+	}
+	
+}
