@@ -1,10 +1,13 @@
 package com.bank.BankSimulator.service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import com.bank.BankSimulato.repository.AccountRepository;
+import com.bank.BankSimulator.exceptions.AccountNotFoundException;
 import com.bank.BankSimulator.exceptions.InvalidAmountException;
 import com.bank.BankSimulator.model.Account;
+ 
 
 public class AccountService {
 	
@@ -23,5 +26,19 @@ public class AccountService {
 		repo.save(account);
 		return account;
 	}
+	
+	
+	public Account getAccount(String accNo) throws AccountNotFoundException {
+        Account a = repo.findAccountByNumber(accNo);
+        if (a == null) {
+            throw new AccountNotFoundException("Account not found: " + accNo);
+        }
+        return a;
+    }
+
+    // List all accounts
+    public Collection<Account> listAll() {
+        return repo.findAll();
+    }
 	
 }
