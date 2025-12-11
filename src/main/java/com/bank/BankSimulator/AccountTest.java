@@ -45,12 +45,6 @@ public class AccountTest {
 			for(Account a : allAccounts) {
 				System.out.println(a);
 			}
-			Connection con = DriverManager.getConnection("jdbc.mysql//localhost:3306", "root", "root");
-			
-			
-			
-			
-			
 			
 			
 		} catch (InvalidAmountException | AccountNotFoundException e) {
