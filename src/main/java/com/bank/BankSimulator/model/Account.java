@@ -20,11 +20,11 @@ public class Account{
 	}
 	
 	
-	public void credit(BigDecimal amount) {
+	public synchronized void credit(BigDecimal amount) {
 		this.balance = this.balance.add(amount);
 	}
 
-	public void debit(BigDecimal amount) {
+	public synchronized void debit(BigDecimal amount) {
 		this.balance = this.balance.subtract(amount);
 	}
 	
