@@ -50,8 +50,8 @@ public class TransactionTest {
 		} catch (InvalidAmountException | AccountNotFoundException | InsufficientBalanceException e) {
 			 
 			e.printStackTrace();
-		}
-		*/
+		}*/
+		
 		
 		try {
 			Account fromAccount = accService.createAccount("Hari", "hari@gmail.com", new BigDecimal("10000"));

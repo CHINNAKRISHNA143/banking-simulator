@@ -7,6 +7,7 @@ import com.bank.BankSimulator.exceptions.AccountNotFoundException;
 import com.bank.BankSimulator.exceptions.InsufficientBalanceException;
 import com.bank.BankSimulator.exceptions.InvalidAmountException;
 import com.bank.BankSimulator.model.Account;
+import com.bank.BankSimulator.util.FileReportUtil;
 
 public class TransactionService {
 	private AccountService accountService;
@@ -24,8 +25,13 @@ public class TransactionService {
 		
 		Account acc = accountService.getAccount(accNo);
 		acc.credit(amount);
+		
+		FileReportUtil.writeLine("DEPOSITE | Acc: "+accNo+" | Amount: "+amount);
+		
 		transactionRepository.logTransaction("DEPOSITE", accNo, amount.doubleValue(), null);
+		
 	}
+	
 	
 	public void withdraw(String accNo, BigDecimal amount) throws InvalidAmountException, AccountNotFoundException, InsufficientBalanceException {
 		if(amount.compareTo(BigDecimal.ZERO) <= 0) {
@@ -39,6 +45,9 @@ public class TransactionService {
 		}
 		
 		account.debit(amount);
+		
+		FileReportUtil.writeLine("WITHDRAW | Acc: "+accNo+" | Amount: "+amount);
+		
 		transactionRepository.logTransaction("WITHDRAW", accNo, amount.doubleValue(), null);
 	}
 	
@@ -57,6 +66,8 @@ public class TransactionService {
 		
 		sender.debit(amount);
 		recevier.credit(amount);
+		
+		FileReportUtil.writeLine("TRANSFER | FromAcc: "+fromAcc+" | ToAccount: "+toAcc+" | Amount "+amount);
 		
 		transactionRepository.logTransaction("TRANSFER", fromAcc, amount.doubleValue(), toAcc);
 		
