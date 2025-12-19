@@ -1,8 +1,7 @@
 package com.bank.BankSimulator;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
+ 
 import java.util.Collection;
 
 import com.bank.BankSimulato.repository.AccountRepository;

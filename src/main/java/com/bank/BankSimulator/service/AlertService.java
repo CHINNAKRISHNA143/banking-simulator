@@ -1,6 +1,6 @@
 package com.bank.BankSimulator.service;
 import java.math.BigDecimal;
-
+import com.bank.BankSimulator.util.EmailUtil;
 import com.bank.BankSimulator.model.Account;
 
 public class AlertService {
@@ -17,7 +17,9 @@ public class AlertService {
 			String subject = "Low Balance Alert: "+account.getAccountNumber();
 			String message = "Dear : "+account.getHolderName()+" ,\n\nYour account balance is Low: "+account.getBalance()+
 					" \nPlease maintain minimum balance.";
-			//sendEmail(account.getEmail(),subject,message);
+			EmailUtil.sendEmail(account.getEmail(),subject,message);
 		}
 	}
 }
+
+

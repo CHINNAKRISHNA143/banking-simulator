@@ -9,6 +9,7 @@ import com.bank.BankSimulator.exceptions.InsufficientBalanceException;
 import com.bank.BankSimulator.exceptions.InvalidAmountException;
 import com.bank.BankSimulator.model.Account;
 import com.bank.BankSimulator.service.AccountService;
+import com.bank.BankSimulator.service.AlertService;
 import com.bank.BankSimulator.service.TransactionService;
 
 public class TransactionTest {
@@ -19,7 +20,8 @@ public class TransactionTest {
 		
 		TransactionRepository trxRepo = new TransactionRepository();
 		AccountService accService = new AccountService(accRepo);
-		TransactionService trx = new TransactionService(accService,trxRepo);
+		AlertService alertService = new AlertService(new BigDecimal("1000"));
+		TransactionService trx = new TransactionService(accService,trxRepo,alertService);
 		
 		/*try {
 			Account acc = accService.createAccount("Hari", "hari@gmail.com", new BigDecimal("1000"));

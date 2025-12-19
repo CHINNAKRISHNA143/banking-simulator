@@ -12,10 +12,13 @@ import com.bank.BankSimulator.util.FileReportUtil;
 public class TransactionService {
 	private AccountService accountService;
 	private TransactionRepository transactionRepository;
+	private AlertService alertService;
 	
-	public TransactionService(AccountService accountService ,TransactionRepository transactionRepository) {
+	
+	public TransactionService(AccountService accountService ,TransactionRepository transactionRepository,AlertService alertService) {
 		this.accountService = accountService;
 		this.transactionRepository = transactionRepository;
+		this.alertService = alertService;
 	}
 	
 	public void deposite(String accNo ,BigDecimal amount) throws InvalidAmountException, AccountNotFoundException {
@@ -30,6 +33,7 @@ public class TransactionService {
 		
 		transactionRepository.logTransaction("DEPOSITE", accNo, amount.doubleValue(), null);
 		
+		alertService.checkBalance(acc);
 	}
 	
 	
@@ -49,6 +53,8 @@ public class TransactionService {
 		FileReportUtil.writeLine("WITHDRAW | Acc: "+accNo+" | Amount: "+amount);
 		
 		transactionRepository.logTransaction("WITHDRAW", accNo, amount.doubleValue(), null);
+		
+		alertService.checkBalance(account);
 	}
 	
 	public void tranfer(String fromAcc,String toAcc,BigDecimal amount) throws AccountNotFoundException, InsufficientBalanceException {
@@ -71,6 +77,8 @@ public class TransactionService {
 		
 		transactionRepository.logTransaction("TRANSFER", fromAcc, amount.doubleValue(), toAcc);
 		
+		alertService.checkBalance(sender);
+		alertService.checkBalance(recevier);
 	}
  
 	 
