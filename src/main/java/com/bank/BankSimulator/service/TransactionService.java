@@ -34,6 +34,7 @@ public class TransactionService {
 		transactionRepository.logTransaction("DEPOSITE", accNo, amount.doubleValue(), null);
 		
 		alertService.checkBalance(acc);
+	 
 	}
 	
 	

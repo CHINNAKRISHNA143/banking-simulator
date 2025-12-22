@@ -20,6 +20,8 @@ public class AlertService {
 			EmailUtil.sendEmail(account.getEmail(),subject,message);
 		}
 	}
+	
+	
 }
 
 
