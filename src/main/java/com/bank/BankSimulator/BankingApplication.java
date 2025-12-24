@@ -70,6 +70,8 @@ public class BankingApplication {
 					BigDecimal amount = sc.nextBigDecimal();
 				try {
 					trxService.deposite(accNumber, amount);
+					System.out.println("Deposite successfull");
+					
 					
 				} catch (InvalidAmountException e) {
 		
@@ -83,10 +85,11 @@ public class BankingApplication {
 				case 3:
 					System.out.println("Enter account number: ");
 					String accNumber1 = sc.nextLine();
-					System.out.println("Enter amount to Deposite");
+					System.out.println("Enter amount to Withdraw");
 					BigDecimal amount1 = sc.nextBigDecimal();
 				try {
 					trxService.withdraw(accNumber1, amount1);
+					System.out.println("Withdraw successfull");
 				} catch (InvalidAmountException | AccountNotFoundException | InsufficientBalanceException e) {
 					 
 					e.printStackTrace();
@@ -103,10 +106,13 @@ public class BankingApplication {
 					
 				try {
 					trxService.tranfer(sAcc, rAcc, transferAmount);
+					System.out.println("Amount Transfer successfull");
 				} catch (AccountNotFoundException | InsufficientBalanceException e) {
 					
 					e.printStackTrace();
 				}
+				
+				break;
 				
 				case 5:
 					System.out.println("Enter Account Number To get the Details");
@@ -119,29 +125,30 @@ public class BankingApplication {
 					e.printStackTrace();
 				}
 				
+				break;
 				
+				case 6:
+					System.out.println("Listing all accounts");
+					
+					for(Account acc : accService.listAll()) {
+						System.out.println(acc);
+					}
+					break;
+					
+				case 7:
+					System.out.println("Thank you for using our Banking Application");
+					running = false;
+					break;
+					
+				default:
+					System.out.println("Invalid choice. Please enter valid choice");
 				
+			 
 			}
 
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		 		
 		
 	}
 }
