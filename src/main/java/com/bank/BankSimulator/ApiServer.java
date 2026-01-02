@@ -34,7 +34,7 @@ public class ApiServer {
 		
 		System.out.println("Spark server started on port number 8080");
 		
-		//create Account
+		//create Account API
 		post("/accounts/create",(req, res) -> {
 			System.out.println("/accounts/create api is called");
 			res.type("application/json");
@@ -43,6 +43,15 @@ public class ApiServer {
 			Account acc = accountService.createAccount(data.name, data.email, data.balance);
 			return gson.toJson(acc);
 			
+		});
+		
+		
+		//Deposite API
+		post("/transactions/deposite",(req, res) ->{
+			System.out.println("transactions/deposite api is called");
+			  TxRequest data = gson.fromJson(req.body(), TxRequest.class);
+			  trxService.deposite(data.accNo, data.amount);
+			  return "Deposite successfully..!";
 		});
 		
 		
@@ -70,27 +79,18 @@ public class ApiServer {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+ 
 	
 	static class AccountRequest{
 			String name;
 			String email;
 			BigDecimal balance;
 		}
+	
+	static class TxRequest{
+		String accNo;
+		BigDecimal amount;
+	}
 
 	 
 }
