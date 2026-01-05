@@ -54,6 +54,25 @@ public class ApiServer {
 			  return "Deposite successfully..!";
 		});
 		
+		//Withdraw API
+		post("/transactions/withdraw",(req, res) ->{
+			System.out.println("/transactions/withdraw api is called");
+			TxRequest data = gson.fromJson(req.body(), TxRequest.class);
+			trxService.withdraw(data.accNo, data.amount);
+			return "Withdraw successfully..!";
+		});
+		
+		post("/transactions/transfer",(req, res) -> {
+			System.out.println("/transactions/tranfer api is called");
+			TransferRequest data = gson.fromJson(req.body(), TransferRequest.class);
+			trxService.tranfer(data.fromAcc, data.toAcc, data.amount);
+			return "Transfer successfully..!";
+			
+		});
+		
+		
+		
+		
 		
 	}
 	
@@ -91,6 +110,23 @@ public class ApiServer {
 		String accNo;
 		BigDecimal amount;
 	}
+	
+	static class TransferRequest{
+		String fromAcc;
+		String toAcc;
+		BigDecimal amount;
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	 
 }
