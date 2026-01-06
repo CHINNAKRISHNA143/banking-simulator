@@ -71,6 +71,28 @@ public class ApiServer {
 		});
 		
 		
+		get("/accounts/:accNo",(req,res) ->{
+			System.out.println("/accounts/acc api is called");
+			res.type("application/json");
+			String accNo = req.params("accNo");
+			try {
+				Account acc = accountService.getAccount(accNo);
+				return gson.toJson(acc);
+				
+			}
+			catch(Exception e) {
+				res.status(404);
+				return gson.toJson("Account not found");
+			}
+		});
+		
+		get("/accounts/all",(req,res) -> {
+			System.out.println("/accounts/all api is called");
+			res.type("application/json");
+			return gson.toJson(accountService.listAll());
+			
+		});
+		
 		
 		
 		
